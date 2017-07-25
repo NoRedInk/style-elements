@@ -1,7 +1,7 @@
 {
-    "version": "3.2.3",
+    "version": "1.0.0",
     "summary": "A different approach to creating and managing styles.",
-    "repository": "https://github.com/mdgriffith/style-elements.git",
+    "repository": "https://github.com/NoRedInk/style-elements.git",
     "license": "BSD3",
     "source-directories": [
         "src"

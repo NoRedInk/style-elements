@@ -1,3 +1,5 @@
+# Just a fork to get unstuck for the time being. Don't depend on this...
+
 # The Style Elements Library!
 
 > Join us on the `#style-elements` channel in the [Elm Slack](https://elmlang.herokuapp.com/)!
@@ -21,6 +23,3 @@ The main idea is that layout should live in your view, and your stylesheet shoul
 The `Element` module contains all the components that go in your view.
 
 The `Style` module is the base for creating your stylesheet.
-
-
-

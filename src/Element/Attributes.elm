@@ -1,140 +1,141 @@
 module Element.Attributes
     exposing
-        ( property
-        , attribute
-        , center
-        , verticalCenter
-        , justify
-        , alignTop
+        ( accept
+        , acceptCharset
+        , accesskey
+        , action
+        , align
         , alignBottom
         , alignLeft
         , alignRight
-        , moveX
-        , moveY
-        , moveUp
-        , moveDown
-        , moveRight
-        , moveLeft
-        , moveXY
-        , width
-        , minWidth
-        , maxWidth
-        , minHeight
-        , maxHeight
-        , height
-        , px
-        , fill
-        , percent
-        , vary
-        , spacing
-        , spacingXY
-        , padding
-        , paddingXY
-        , paddingTop
-        , paddingRight
-        , paddingBottom
-        , paddingLeft
-        , scrollbars
-        , yScrollbar
-        , xScrollbar
+        , alignTop
+        , alt
+        , async
+        , attribute
+        , attributes
+        , autocomplete
+        , autofocus
+        , autoplay
+        , center
+        , challenge
+        , charset
+        , checked
+        , cite
+        , class
+        , classList
         , clip
         , clipX
         , clipY
-        , class
-        , classList
-        , inlineStyle
-        , id
-        , map
-        , title
-        , hidden
-        , type_
-        , value
+        , cols
+        , colspan
+        , content
+        , contenteditable
+        , contextmenu
+        , controls
+        , coords
+        , datetime
+        , default
         , defaultValue
-        , checked
-        , placeholder
-        , selected
-        , accept
-        , acceptCharset
-        , action
-        , autocomplete
-        , autofocus
+        , defer
+        , dir
         , disabled
+        , download
+        , downloadAs
+        , draggable
+        , dropzone
         , enctype
+        , fill
+        , for
+        , form
         , formaction
+        , headers
+        , height
+        , hidden
+        , href
+        , hreflang
+        , httpEquiv
+        , id
+        , inlineStyle
+        , ismap
+        , itemprop
+        , justify
+        , keytype
+        , kind
+        , lang
+        , language
         , list
+        , loop
+        , manifest
+        , map
+        , max
+        , maxHeight
+        , maxWidth
         , maxlength
-        , minlength
+        , media
         , method
+        , min
+        , minHeight
+        , minWidth
+        , minlength
+        , moveDown
+        , moveLeft
+        , moveRight
+        , moveUp
+        , moveX
+        , moveXY
+        , moveY
         , multiple
         , name
         , novalidate
+        , padding
+        , paddingBottom
+        , paddingLeft
+        , paddingRight
+        , paddingTop
+        , paddingXY
         , pattern
-        , readonly
-        , required
-        , size
-        , for
-        , form
-        , max
-        , min
-        , step
-        , cols
-        , rows
-        , wrap
-        , href
-        , target
-        , download
-        , downloadAs
-        , hreflang
-        , media
+        , percent
         , ping
-        , rel
-        , ismap
-        , usemap
-        , shape
-        , coords
-        , src
-        , alt
-        , autoplay
-        , controls
-        , loop
-        , preload
+        , placeholder
         , poster
-        , default
-        , kind
-        , srclang
-        , sandbox
-        , seamless
-        , srcdoc
-        , reversed
-        , start
-        , align
-        , colspan
-        , rowspan
-        , headers
-        , scope
-        , async
-        , charset
-        , content
-        , defer
-        , httpEquiv
-        , language
-        , scoped
-        , accesskey
-        , contenteditable
-        , contextmenu
-        , dir
-        , draggable
-        , dropzone
-        , itemprop
-        , lang
-        , spellcheck
-        , tabindex
-        , challenge
-        , keytype
-        , cite
-        , datetime
+        , preload
+        , property
         , pubdate
-        , manifest
+        , px
+        , readonly
+        , rel
+        , required
+        , reversed
+        , rows
+        , rowspan
+        , sandbox
+        , scope
+        , scoped
+        , scrollbars
+        , seamless
+        , selected
+        , shape
+        , size
+        , spacing
+        , spacingXY
+        , spellcheck
+        , src
+        , srcdoc
+        , srclang
+        , start
+        , step
+        , tabindex
+        , target
+        , title
+        , type_
+        , usemap
+        , value
+        , vary
+        , verticalCenter
+        , width
+        , wrap
+        , xScrollbar
+        , yScrollbar
         )
 
 {-|
@@ -218,7 +219,7 @@ Attributes](#custom-attributes) section to learn how to create new helpers.
 
 # Primitives
 
-@docs inlineStyle, property, attribute, map
+@docs inlineStyle, property, attribute, attributes, map
 
 
 # Super Common Attributes
@@ -304,12 +305,13 @@ Attributes that can be attached to any HTML tag but are less commonly used.
 -}
 
 import Element.Internal.Model as Internal exposing (..)
-import Style.Internal.Model as Style exposing (Length)
-import Style.Internal.Render.Value as StyleValue
+import Html
 import Html.Attributes
-import VirtualDom
 import Json.Decode as Json
 import Style exposing (Style)
+import Style.Internal.Model as Style exposing (Length)
+import Style.Internal.Render.Value as StyleValue
+import VirtualDom
 
 
 {-| -}
@@ -628,7 +630,7 @@ inlineStyle =
 -- CUSTOM ATTRIBUTES
 
 
-{-| Create *properties*, like saying `domNode.className = 'greeting'` in
+{-| Create _properties_, like saying `domNode.className = 'greeting'` in
 JavaScript.
 
     import Json.Encode as Encode
@@ -647,7 +649,7 @@ property str val =
     Attr <| Html.Attributes.property str val
 
 
-{-| Create *attributes*, like saying `domNode.setAttribute('class', 'greeting')`
+{-| Create _attributes_, like saying `domNode.setAttribute('class', 'greeting')`
 in JavaScript.
 
     class : String -> Attribute variation msg
@@ -662,6 +664,12 @@ Read more about the difference between properties and attributes [here].
 attribute : String -> String -> Attribute variation msg
 attribute name val =
     Attr <| Html.Attributes.attribute name val
+
+
+{-| -}
+attributes : List (Html.Attribute msg) -> List (Attribute variation msg)
+attributes =
+    List.map Attr
 
 
 {-| Transform the messages produced by an `Attribute`.
