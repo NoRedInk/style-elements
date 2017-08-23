@@ -126,7 +126,7 @@ render maybeGuard selector =
     in
         case selector of
             Select single _ ->
-                "." ++ guard single
+                ".style-elements-root ." ++ guard single
 
             SelectChild child ->
                 "> " ++ render maybeGuard child
