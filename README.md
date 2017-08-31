@@ -1,3 +1,9 @@
+# Hi!
+
+Unless you know you need the fix in this package, please prefer [mdgriffith/style-elements](http://package.elm-lang.org/packages/mdgriffith/style-elements/latest). This was just published to fix a bug.
+
+---
+
 # The Style Elements Library!
 
 > Join us on the `#style-elements` channel in the [Elm Slack](https://elmlang.herokuapp.com/)!
