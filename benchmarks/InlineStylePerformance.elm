@@ -14,12 +14,12 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Html.Lazy
-import Murmur3
 import Next.Inline.Element as Next
 import Next.Inline.Element.Content as Content
 import Next.Inline.Element.Position as Position
 import Next.Inline.Style.Color as Color
 import Set
+import StyleElementsVendored.Murmur3 as Murmur3
 import Time exposing (Time)
 import VirtualCss
 
@@ -201,18 +201,21 @@ update msg model =
                 newSkipped =
                     if model.time /= 0 && time - model.time > Time.millisecond * 18 then
                         time - model.time
+
                     else
                         0
 
                 newTotal =
                     if model.time == 0 then
                         0
+
                     else
                         model.total + (time - model.time)
 
                 currentFrameTime =
                     if model.time == 0 then
                         16.66
+
                     else
                         time - model.time
             in
@@ -232,6 +235,7 @@ update msg model =
                         RefreshTime revert ->
                             if time > revert then
                                 Continue
+
                             else
                                 model.refreshFrame
               }
@@ -406,6 +410,7 @@ view model =
         , viewStats model
         , if model.refreshFrame /= Continue then
             Html.div [ Html.Attributes.style [ ( "background-color", "red" ), ( "width", "100%" ), ( "height", "100%" ) ] ] [ Html.text "REFRESH" ]
+
           else
             case model.renderer.technique of
                 InlineStyles ->
@@ -658,14 +663,17 @@ styleElements time nodes renderer =
             List.filterMap identity
                 [ if renderer.color then
                     Just <| Color.background (Color.rgb r g b)
+
                   else
                     Nothing
                 , if renderer.translate then
                     Just <| Position.moveRight pos
+
                   else
                     Nothing
                 , if renderer.rotate then
                     Just <| Position.rotate pos
+
                   else
                     Nothing
                 ]
@@ -694,6 +702,7 @@ virtualCss time nodes renderer =
                         combine ( cls, props ) ( styleI, cache ) =
                             if Set.member cls cache then
                                 ( styleI, cache )
+
                             else
                                 let
                                     _ =
@@ -723,6 +732,7 @@ virtualCss time nodes renderer =
         -- Html.Lazy.lazy2 createNodesLazy renderer nodes
         createStyledNodes renderer nodes time
             |> reduceAndInsertStyles
+
     else
         createStyledNodes renderer nodes time
             |> reduceAndInsertStyles
@@ -773,6 +783,7 @@ createStyledNodes renderer count time =
         el myClass =
             if renderer.color then
                 div [ class ("style-no-bg test " ++ myClass) ] []
+
             else
                 div [ class ("style test " ++ myClass) ] []
 
@@ -801,6 +812,7 @@ virtualCssTransformViaAnimation time nodes renderer =
                 el i =
                     if renderer.color then
                         div [ class ("style-no-bg test move-it virtual-css-" ++ toString i) ] []
+
                     else
                         div [ class ("style test move-it virtual-css-" ++ toString i) ] []
             in
@@ -826,6 +838,7 @@ virtualCssTransformViaAnimation time nodes renderer =
     in
     if renderer.lazy then
         Html.Lazy.lazy fixed nodes
+
     else
         fixed nodes
 
@@ -854,6 +867,7 @@ cssAnimationRenderer nodes renderer =
                 styleCls =
                     if renderer.color then
                         "style blue test move-it-color"
+
                     else
                         "style blue test move-it"
             in
@@ -866,6 +880,7 @@ cssAnimationRenderer nodes renderer =
                     (List.repeat n el)
             )
             nodes
+
     else
         div [ class "renderer" ]
             (List.repeat nodes el)
@@ -978,6 +993,7 @@ wrap : Int -> Int -> Int
 wrap bound i =
     if i > bound then
         rem i bound
+
     else
         i
 
@@ -1011,6 +1027,7 @@ encodedPropsSingle renderer time i =
             animateColor time
                 (if renderer.independent then
                     i
+
                  else
                     0
                 )
@@ -1019,6 +1036,7 @@ encodedPropsSingle renderer time i =
             animatePosSin time
                 (if renderer.independent then
                     i
+
                  else
                     0
                 )
@@ -1027,6 +1045,7 @@ encodedPropsSingle renderer time i =
             (String.join "-" << List.filterMap identity)
                 [ if renderer.color then
                     Just <| String.join "-" [ "bc", toString r, toString g, toString b ]
+
                   else
                     Nothing
                 , if renderer.translate || renderer.rotate then
@@ -1034,14 +1053,17 @@ encodedPropsSingle renderer time i =
                         (String.join "-" <|
                             [ if renderer.translate then
                                 "tr-" ++ toString (round (pos * 100)) ++ "px-0px"
+
                               else
                                 ""
                             , if renderer.rotate then
                                 "rt" ++ toString (round (pos * 100)) ++ "d"
+
                               else
                                 ""
                             ]
                         )
+
                   else
                     Nothing
                 ]
@@ -1050,6 +1072,7 @@ encodedPropsSingle renderer time i =
             List.filterMap identity
                 [ if renderer.color then
                     Just <| ( "background-color", "rgb(" ++ toString r ++ ", " ++ toString g ++ ", " ++ toString b ++ ")" )
+
                   else
                     Nothing
                 , if renderer.translate || renderer.rotate then
@@ -1058,14 +1081,17 @@ encodedPropsSingle renderer time i =
                         , String.join " " <|
                             [ if renderer.translate then
                                 "translate(" ++ toString pos ++ "px, 0px)"
+
                               else
                                 ""
                             , if renderer.rotate then
                                 "rotate(" ++ toString pos ++ "deg)"
+
                               else
                                 ""
                             ]
                         )
+
                   else
                     Nothing
                 ]
@@ -1085,6 +1111,7 @@ encodedProps renderer time i =
                         animateColor time
                             (if renderer.independent then
                                 i
+
                              else
                                 0
                             )
@@ -1098,6 +1125,7 @@ encodedProps renderer time i =
                     , [ ( "background-color", "rgb(" ++ toString r ++ ", " ++ toString g ++ ", " ++ toString b ++ ")" ) ]
                     )
                 )
+
             else
                 ( "", Nothing )
 
@@ -1108,6 +1136,7 @@ encodedProps renderer time i =
                         animatePosSin time
                             (if renderer.independent then
                                 i
+
                              else
                                 0
                             )
@@ -1116,10 +1145,12 @@ encodedProps renderer time i =
                         String.join "-" <|
                             [ if renderer.translate then
                                 "tr-" ++ toString (round (pos * 100)) ++ "px-0px"
+
                               else
                                 ""
                             , if renderer.rotate then
                                 "rt-" ++ toString (round (pos * 100)) ++ "d"
+
                               else
                                 ""
                             ]
@@ -1131,10 +1162,12 @@ encodedProps renderer time i =
                         , String.join " " <|
                             [ if renderer.translate then
                                 "translate(" ++ toString pos ++ "px, 0px)"
+
                               else
                                 ""
                             , if renderer.rotate then
                                 "rotate(" ++ toString pos ++ "deg)"
+
                               else
                                 ""
                             ]
@@ -1142,6 +1175,7 @@ encodedProps renderer time i =
                       ]
                     )
                 )
+
             else
                 ( "", Nothing )
     in
@@ -1156,12 +1190,14 @@ addColor renderer time i styleAttrs =
             animateColor time
                 (if renderer.independent then
                     i
+
                  else
                     0
                 )
     in
     if renderer.color then
         ( "background-color", "rgb(" ++ toString r ++ ", " ++ toString g ++ ", " ++ toString b ++ ")" ) :: styleAttrs
+
     else
         styleAttrs
 
@@ -1172,6 +1208,7 @@ addTransform renderer time i styleAttrs =
             animatePosSin time
                 (if renderer.independent then
                     i
+
                  else
                     0
                 )
@@ -1180,16 +1217,19 @@ addTransform renderer time i styleAttrs =
             List.filterMap identity
                 [ if renderer.translate then
                     Just ("translate3d(" ++ toString pos ++ "px, 0px, 0px)")
+
                   else
                     Nothing
                 , if renderer.rotate then
                     Just ("rotate(" ++ toString pos ++ "deg)")
+
                   else
                     Nothing
                 ]
     in
     if List.isEmpty transforms then
         styleAttrs
+
     else
         ( "transform"
         , String.join " " transforms

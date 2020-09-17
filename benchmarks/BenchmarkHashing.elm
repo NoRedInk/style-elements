@@ -3,12 +3,12 @@ module Main exposing (..)
 import Benchmark exposing (..)
 import Benchmark.Runner exposing (BenchmarkProgram, program)
 import Color
-import Murmur3
 import Style exposing (..)
 import Style.Border as Border
 import Style.Color as Color
 import Style.Font as Font
 import Style.Sheet
+import StyleElementsVendored.Murmur3 as Murmur3
 
 
 main : BenchmarkProgram
@@ -67,6 +67,8 @@ _ =
             |> String.join ""
             |> String.length
         )
+
+
 _ =
     Debug.log "average style" (String.length <| toString test)
 

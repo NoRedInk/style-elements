@@ -1,7 +1,7 @@
 {
     "type": "package",
-    "name": "mdgriffith/style-elements",
-    "summary": "This project had a major rewrite and continues as mdgriffith/elm-ui",
+    "name": "NoRedInk/style-elements",
+    "summary": "Legacy fork of mdgriffith/style-elements to fix a bug in an indirect dependency",
     "license": "BSD-3-Clause",
     "version": "5.0.1",
     "exposed-modules": [
@@ -23,7 +23,6 @@
     ],
     "elm-version": "0.19.0 <= v < 0.20.0",
     "dependencies": {
-        "Skinney/murmur3": "2.0.7 <= v < 3.0.0",
         "elm/core": "1.0.0 <= v < 2.0.0",
         "elm/html": "1.0.0 <= v < 2.0.0",
         "elm/json": "1.0.0 <= v < 2.0.0",

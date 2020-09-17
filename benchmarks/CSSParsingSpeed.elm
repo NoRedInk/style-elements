@@ -24,8 +24,8 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Html.Lazy
-import Murmur3
 import Set
+import StyleElementsVendored.Murmur3 as Murmur3
 import Time exposing (Time)
 
 
@@ -315,6 +315,7 @@ reduceAndRenderList ls =
         reduceNRender ( key, style ) ( rendered, cache ) =
             if Set.member key cache then
                 ( rendered, cache )
+
             else
                 ( renderStyle style
                     ++ "\n"
