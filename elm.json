@@ -3,7 +3,7 @@
     "name": "NoRedInk/style-elements",
     "summary": "Legacy fork of mdgriffith/style-elements to fix a bug in an indirect dependency",
     "license": "BSD-3-Clause",
-    "version": "5.0.1",
+    "version": "2.0.2",
     "exposed-modules": [
         "Style",
         "Style.Border",
